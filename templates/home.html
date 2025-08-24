@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ env.platform_name }} - {{ env.environment }} Environment{% endblock title %}
+
+{% block content %}
+<div class="hero">
+    <h1>{{ env.platform_name }} Test Environment</h1>
+    <p>This is a test deployment environment for validating Shard Platform configurations and features.</p>
+    <div class="test-status">
+        <span class="badge">{{ env.environment|title }} Environment</span>
+        <span class="version">Version: {{ env.version }}</span>
+    </div>
+    <a href="{{ url_for('about') }}" class="btn">View Test Details</a>
+</div>
+
+<div class="card">
+    <h2>Test Environment Information</h2>
+    <ul class="test-info">
+        <li>Testing deployment configurations</li>
+        <li>Validating system integrations</li>
+        <li>Preparing for production deployment</li>
+    </ul>
+    <p class="warning">Note: This is a production environment. All data and functionality are for testing purposes
+        only.</p>
+</div>
+
+<div class="card env-card">
+    <h2>Env Variable Injection Works</h2>
+    <div class="env-vars">
+        <div class="env-item">
+            <span class="env-label">Platform:</span>
+            <span class="env-value">{{ env.platform_name }}</span>
+        </div>
+        <div class="env-item">
+            <span class="env-label">Environment:</span>
+            <span class="env-value">{{ env.environment }}</span>
+        </div>
+        <div class="env-item">
+            <span class="env-label">Version:</span>
+            <span class="env-value">{{ env.version }}</span>
+        </div>
+    </div>
+</div>
+{% endblock content %}
