@@ -1,16 +1,25 @@
-from flask import Blueprint
-import os
+from flask import Blueprint, render_template, request
+from os import getenv
 
 main = Blueprint("main", __name__)
 
-@main.route("/")
+@main.route('/')
 def home():
-    return "<h2>Welcome to the Flask Dockerized App!</h2>"
+    env_data = {
+        'environment': getenv('ENVIRONMENT', 'development'),
+        'version': getenv('APP_VERSION', '0.0.0'),
+        'platform_name': getenv('PLATFORM_NAME', 'Platform')
+    }
+    return render_template('home.html', env=env_data)
 
-@main.route("/about")
+@main.route('/about')
 def about():
-    variable_value = os.getenv("VARIABLE", "Not Set")
-    return f"""
-        <p>This is a sample containerized Flask app served via ForgeFlow.</p>
-        <p>VARIABLE = {variable_value}</p>
-    """
+    return render_template('about.html')
+
+@main.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+    return render_template('contact.html')
