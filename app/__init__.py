@@ -5,7 +5,7 @@ import os
 load_dotenv()
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='../templates', static_folder='../static')
     app.config["VARIABLE"] = os.getenv("VARIABLE","nah not loaded")
     from .routes import main
     app.register_blueprint(main)
